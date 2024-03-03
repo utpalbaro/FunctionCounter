@@ -1,10 +1,10 @@
 #include "../FunctionCounter.h"
-#include "BSTMap.h"
+// #include "BSTMap.h"
 #include <unordered_map>
 
 namespace fc 
 {
-    static BSTMap<const void*, unsigned int> gFunctionData;
+    static std::unordered_map<const void*, unsigned int> gFunctionData;
     static bool gRecording = false;
 
     void entryHandler(const void* funcAddr);
@@ -45,7 +45,19 @@ size_t fc::getDataSize()
 // of what's wrong
 void fc::getFunctionData(fc::FunctionData* data, const size_t count)
 {
-    gFunctionData.getData(data, count);
+    // gFunctionData.getData(data, count);
+    size_t i = 0;
+
+    for (const auto& item : gFunctionData)
+    {
+        if (i >= count)
+            break;
+
+        data[i].funcAddr = item.first;
+        data[i].count = item.second;
+
+        ++i;
+    }
 }
 
 void fc::entryHandler(const void* funcAddr)

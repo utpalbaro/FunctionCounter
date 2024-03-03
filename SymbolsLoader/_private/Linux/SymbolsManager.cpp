@@ -1,23 +1,27 @@
 #include "../../SymbolsManager.h"
 #include <cstring>
 #include <cstdlib>
-#include <execinfo.h>
+#include <dlfcn.h>
 #include <iostream>
+#include <cxxabi.h>
 
-bool sm::getFunctionInfo(const void* address, char* functionInfo, const unsigned int maxlen)
+bool sm::getFunctionInfo(const void* address, char* functionInfo, const size_t maxlen)
 {
-    char **fInfo;   // It will be malloced inside
-    void *array[1];
+    Dl_info info;
 
-    // backtrace_symbols needs it like that
-    memcpy(array, address, sizeof(void*));
+    // It will fill info struct
+    dladdr(address, &info);
 
-    fInfo = backtrace_symbols (array, 1);
+    // This char* is malloced inside this function, need to clear it
+    char* fName = abi::__cxa_demangle(info.dli_sname, NULL, NULL, NULL);
 
-    strcpy(functionInfo, fInfo[0]);
+    if (fName == nullptr)
+        return false;
+
+    strncpy(functionInfo, fName, maxlen);
 
     // free the malloc'ed fInfo
-    free(fInfo);
+    free(fName);
 
     return true;
 }

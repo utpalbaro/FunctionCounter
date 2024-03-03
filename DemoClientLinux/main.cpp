@@ -36,12 +36,10 @@ int main()
 
     for (size_t i = 0; i < num; ++i)
     {
-        std::cout << data[i].funcAddr << "; " << data[i].count << "\n";
+        if (!sm::getFunctionInfo(data[i].funcAddr, fInfo, MAX_INFO))
+            continue;
 
-        // if (!sm::getFunctionInfo(data[i].funcAddr, fInfo, MAX_INFO))
-        //     continue;
-
-        // std::cout << fInfo << "\n";
+        std::cout << fInfo << "; " << data[i].count << "\n";
     }
     std::cout << "World\n";
 
