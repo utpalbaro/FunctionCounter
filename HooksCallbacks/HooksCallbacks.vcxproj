@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{afb32ab7-0587-4849-a58d-eed6a3ddcd29}</ProjectGuid>
-    <RootNamespace>SymbolsLoader</RootNamespace>
+    <ProjectGuid>{45722442-ef68-449b-a36f-d333b69c6d68}</ProjectGuid>
+    <RootNamespace>HooksCallbacks</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -139,12 +140,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="SymbolsManager.h" />
+    <ClInclude Include="HooksCallback.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_private\Windows\SymbolsManager.cpp" />
+    <ClCompile Include="_private\HooksCallbacks.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="_private\Windows\HooksImpl.asm">
+      <FileType>Document</FileType>
+    </MASM>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

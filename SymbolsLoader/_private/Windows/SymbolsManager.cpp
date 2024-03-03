@@ -13,7 +13,7 @@ public:
     SymbolsManager& operator = (const SymbolsManager&&) = delete;
     ~SymbolsManager();
 
-    bool getFunctionInfo(const void* address, char* functionInfo, const unsigned int maxlen);
+    bool getFunctionInfo(const void* address, char* functionInfo, const size_t maxlen);
 
     inline static SymbolsManager& getInstance()
     {
@@ -47,7 +47,7 @@ SymbolsManager::~SymbolsManager()
         SymCleanup(GetCurrentProcess());
 }
 
-bool SymbolsManager::getFunctionInfo(const void* address, char* functionInfo, const unsigned int maxlen)
+bool SymbolsManager::getFunctionInfo(const void* address, char* functionInfo, const size_t maxlen)
 {
     if (!_symbolsInitialized)
         return false;
@@ -69,12 +69,6 @@ bool SymbolsManager::getFunctionInfo(const void* address, char* functionInfo, co
     if (!symResult)
         return false;
 
-    // If we don't skip, it will show a lot of header only
-    // (class/function templates), as they become part of the
-    // translation unit they're used in
-    if (strstr(pSymInfo->Name, "std::"))
-        return false;
-
     DWORD displacement;
     IMAGEHLP_LINE64 line;
     line.SizeOfStruct = sizeof(IMAGEHLP_LINE64);
@@ -89,7 +83,7 @@ bool SymbolsManager::getFunctionInfo(const void* address, char* functionInfo, co
     return ret == -1 ? false : true;
 }
 
-bool sm::getFunctionInfo(const void* address, char* functionInfo, const unsigned int maxlen)
+bool sm::getFunctionInfo(const void* address, char* functionInfo, const size_t maxlen)
 {
     return SymbolsManager::getInstance().getFunctionInfo(address, functionInfo, maxlen);
 }

@@ -15,16 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FunctionCounter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_private\BSTMap.h">
+    <ClInclude Include="HooksCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_private\FunctionCounter.cpp">
+    <ClCompile Include="_private\HooksCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_private\Windows\HooksImpl.asm">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

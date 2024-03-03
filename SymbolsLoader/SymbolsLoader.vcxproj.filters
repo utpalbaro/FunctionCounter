@@ -20,7 +20,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_private\SymbolsManager.cpp">
+    <ClCompile Include="_private\Windows\SymbolsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
